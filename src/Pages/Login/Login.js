@@ -3,6 +3,7 @@ import {useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebas
 import auth from '../../firebase.init';
 import Loading from '../Shared/Loading';
 import { useForm } from "react-hook-form";
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
@@ -22,8 +23,8 @@ const Login = () => {
       if(error || gError){
         signInError= <p className='text-red-500'><small>{error?.message || gError?.message }</small></p>
     }
-    if (gUser) {
-        console.log(gUser);
+    if (user || gUser) {
+        console.log(user || gUser);
     }
     const onSubmit = data => {
         console.log(data)
@@ -97,6 +98,7 @@ const Login = () => {
                         <input className='btn w-full max-w-xs text-white' type="submit" value="Login" />
                     </form>
 
+                    <p><small>New to Doctors Portal <Link className='text-primary' to="/signup">Create New Account</Link></small></p>
                     <div className="divider">OR</div>
                     <button
                         onClick={() => signInWithGoogle()}
